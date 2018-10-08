@@ -1,3 +1,4 @@
+#Shachar Frank and  Eran Haim
 import socket, time, User
 
 SERVER_ADDRESS = "127.0.0.1"

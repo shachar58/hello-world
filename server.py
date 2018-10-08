@@ -1,3 +1,4 @@
+#Shachar Frank and  Eran Haim
 import socket
 
 SERVER_ADDRESS = "localhost"
