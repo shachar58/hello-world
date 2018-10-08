@@ -15,7 +15,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         print("Connection from:", address)
         while True:
             data = conn.recv(1024)
-            print(data)
+            print('Received: ', data)
             print("waiting for data")
             if not data:
                 break
