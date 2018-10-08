@@ -1,5 +1,6 @@
 #Shachar Frank and  Eran Haim
-import socket, time, User
+import vigenere
+import socket, time
 
 SERVER_ADDRESS = "127.0.0.1"
 SERVER_PORT = 10000
@@ -11,7 +12,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     print("connected")
     while True:
         message = input("Enter Text: ")
-        s.sendall(bytearray(message, encoding="ascii"))
+        s.sendall(bytearray(vigenere.translate(message,"KeyVal","encrypt").encode()))
         data = s.recv(1024)
         print('Received', data)
 

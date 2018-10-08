@@ -4,6 +4,7 @@ def translate (message, key, mode):
     key = key.upper()
     key_index = 0
     translated = []
+    message=''.join(message)
     for char in message:
         num = letters.find(char.upper())
         if num != -1: # -1 means symbol.upper() was not found in LETTERS
