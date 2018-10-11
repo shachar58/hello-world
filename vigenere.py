@@ -1,6 +1,19 @@
 #Shachar Frank and  Eran Haim
-def translate (message, key, mode):
-    letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+import random
+currentSession=0
+import Letters
+
+LettersDir={}
+letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+def translate (message, key, mode,sessionIndex):
+    if sessionIndex in LettersDir.keys():
+        letters = LettersDir[sessionIndex]
+    else:
+        print("changed letters !")
+        defineLetters(sessionIndex)
+        letters=LettersDir[sessionIndex]
+    print(sessionIndex,", ",LettersDir[sessionIndex])
     key = key.upper()
     key_index = 0
     translated = []
@@ -26,3 +39,12 @@ def translate (message, key, mode):
             # The symbol was not in LETTERS, so add it to translated as is.
             translated.append(char)
     return ''.join(translated)
+
+
+def defineLetters (sessionIndex):
+    LettersDir[sessionIndex]=shuffle_string(letters)
+
+def shuffle_string(string):
+    chars = list(string)
+    random.shuffle(chars)
+    return ''.join(chars)
