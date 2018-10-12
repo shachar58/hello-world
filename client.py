@@ -1,4 +1,5 @@
-import socket, time, User
+#Shachar Frank and  Eran Haim
+import socket, time
 
 SERVER_ADDRESS = "127.0.0.1"
 SERVER_PORT = 10000
@@ -12,5 +13,5 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         message = input("Enter Text: ")
         s.sendall(bytearray(message, encoding="ascii"))
         data = s.recv(1024)
-        print('Received', data)
+        print('Sent:', data)
 
