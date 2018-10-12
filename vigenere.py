@@ -1,18 +1,18 @@
-#Shachar Frank and  Eran Haim
-import random
-currentSession=0
-import Letters
+# Shachar Frank and  Eran Haim
 
-LettersDir={}
+import random
+
+currentSession = 0
+LettersDir = {}
 letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
-def translate (message, key, mode,sessionIndex):
+def translate (message, key, mode, sessionIndex):
     if sessionIndex in LettersDir.keys():
         letters = LettersDir[sessionIndex]
     else:
         print("changed letters !")
         defineLetters(sessionIndex)
-        letters=LettersDir[sessionIndex]
+        letters = LettersDir[sessionIndex]
     print(sessionIndex,", ",LettersDir[sessionIndex])
     key = key.upper()
     key_index = 0
@@ -27,7 +27,7 @@ def translate (message, key, mode,sessionIndex):
                 num -= letters.find(key[key_index]) # subtract if decrypting
 
             num %= len(letters) # handle the potential wrap-around
-             # add the encrypted/decrypted symbol to the end of translated.
+            # add the encrypted/decrypted symbol to the end of translated.
             if char.isupper():
                 translated.append(letters[num])
             elif char.islower():
@@ -42,7 +42,7 @@ def translate (message, key, mode,sessionIndex):
 
 
 def defineLetters (sessionIndex):
-    LettersDir[sessionIndex]=shuffle_string(letters)
+    LettersDir[sessionIndex] = shuffle_string(letters)
 
 def shuffle_string(string):
     chars = list(string)
