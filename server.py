@@ -1,4 +1,5 @@
-
+#Shachar Frank and  Eran Haim
+import vigenere
 import socket
 
 SERVER_ADDRESS = "localhost"
@@ -14,9 +15,11 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     with conn:
         print("Connection from:", address)
         while True:
-            data = conn.recv(1024)
-            print(data)
-            print("waiting for data")
+            data = conn.recv(1024).decode()
+            print('encrypted data: ', data[26:])
+            print("cypher:\n", data[:26])
+            print('Received: ', vigenere.translate(data[26:],"KeyVal","decrypt",data[:26]))
+            print("waiting for data\n\n")
             if not data:
                 break
-            conn.sendall(data)
+            conn.sendall(data.encode())
