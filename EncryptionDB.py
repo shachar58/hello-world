@@ -1,0 +1,2 @@
+LettersDir={}
+letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
