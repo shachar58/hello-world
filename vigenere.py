@@ -1,5 +1,6 @@
 #Shachar Frank and  Eran Haim
-def translate (message, key, mode,cypher):
+
+def translate (message, key, mode,cypher):  #the main function for encrypting and decrypting
     key = key.upper()
     key_index = 0
     translated = []
@@ -12,15 +13,15 @@ def translate (message, key, mode,cypher):
                 num -= cypher.find(key[key_index]) # subtract if decrypting
 
             num %= len(cypher) # handle the potential wrap-around
-             # add the encrypted/decrypted symbol to the end of translated.
-            if char.isupper():
+
+            if char.isupper():      # add the encrypted/decrypted symbol to the end of translated
                 translated.append(cypher[num])
             elif char.islower():
                 translated.append(cypher[num].lower())
             key_index += 1 # move to the next letter in the key
-            if key_index == len(key):
+            if key_index == len(key):   #the index is reset if it reach the final letter
                 key_index = 0
         else:
-            # The symbol was not in LETTERS, so add it to translated as is.
+            # The symbol was not in "char", so add it to translated as is.
             translated.append(char)
     return ''.join(translated)
