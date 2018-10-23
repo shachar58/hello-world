@@ -17,11 +17,11 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s: #open's a new socke
     with conn:  #creates an individual connection and close's it after code ends
         print("Connection from:", address) #connection origin
         while True:
+            print("waiting for data\n\n")   # connection put on standby
             data = conn.recv(1024).decode() #the data from the connection
             print('encrypted data: ', data[26:])    #print the data
             print("cypher:\n", data[:26])   #print the cypher used
             print('Received: ', vigenere.translate(data[26:],"KeyVal","decrypt",data[:26])) # print translated message
-            print("waiting for data\n\n")   # connection put on standby
-            if not data:
+            if not data: #the program will stop if sent an empty packet
                 break
             conn.sendall(data.encode())

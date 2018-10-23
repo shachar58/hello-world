@@ -20,7 +20,10 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s: ##open's a new sock
     print("connected")
     while True:
         cypher = shuffle_string('ABCDEFGHIJKLMNOPQRSTUVWXYZ')   # the cypher function  shuffle's the alphabet into a cypher
+        print("To quit, type: 'bye' ")
         message = input("Enter message for server: ")   #prompt the user to create a message
+        if message == "bye":    #when the user type 'bye'the program will stop
+            break
         message = vigenere.translate(message, "KeyVal", "encrypt", cypher)  #encrypt the message with the KeyVal key and the randomizd cypher
         message = cypher + message  # combining the message with the cypher, as a 26 char pre-message data
         print("encrypted message:\n", message[26:]) #prints the message from the end of the cypher to the end
