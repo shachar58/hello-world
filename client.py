@@ -1,8 +1,8 @@
 #Shachar Frank and  Eran Haim
 
 import vigenere #import the function class
-import random   #import random library
-import socket   #import the socket library
+import random   #import random module
+import socket   #import the socket module
 
 #the client connection information
 SERVER_ADDRESS = "127.0.0.1"
@@ -17,6 +17,7 @@ def shuffle_string(string): #change's the order of the alphabet string, in order
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s: ##open's a new socket for IP\TCP and close's it after the end of the code
     print(f"Host {SERVER_ADDRESS} at port {SERVER_PORT}")   #print's the client information
     s.connect(address)  #connect's to the port in connection information
+    key = s.recv(1024).decode()
     print("connected")
     while True:
         cypher = shuffle_string('ABCDEFGHIJKLMNOPQRSTUVWXYZ')   # the cypher function  shuffle's the alphabet into a cypher
@@ -24,14 +25,13 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s: ##open's a new sock
         message = input("Enter message for server: ")   #prompt the user to create a message
         if message == "bye":    #when the user type 'bye'the program will stop
             break
-        message = vigenere.translate(message, "KeyVal", "encrypt", cypher)  #encrypt the message with the KeyVal key and the randomizd cypher
-        message = cypher + message  # combining the message with the cypher, as a 26 char pre-message data
-        print("encrypted message:\n", message[26:]) #prints the message from the end of the cypher to the end
-        print("cypher:\n", message[:26])    #print only the cypher
-        print("decrypted message:\n", vigenere.translate(message[26:], "KeyVal", "decrypt", message[:26]))  # the message decrypted using the cypher whithin it
+        message = vigenere.translate(message, key, "encrypt", cypher)  #encrypt the message with the KeyVal key and the randomizd cypher
+        message = cypher + message                                     # combining the message with the cypher, as a 26 char pre-message data
+        print("\nencrypted message:  ", message[26:])                  #prints the message from the end of the cypher to the end
+        print("cypher:", message[:26])              #print only the cypher
+        print("decrypted message:  ", vigenere.translate(message[26:], key, "decrypt", message[:26]),"\n")  # the message decrypted using the cypher whithin it
         s.sendall(bytearray(message.encode()))  #send's the message
-        data = s.recv(1024).decode()    #recive the date from the server
-        print('Message from server:\n Server Sent - ', vigenere.translate(data[26:], "KeyVal", "decrypt", data[:26]))   #print and decypher the message from the server
-        print("\n\n")
+        data = s.recv(1024).decode()            #recive the reply from the server
+        print('Message from server:\n Server Sent - ', vigenere.translate(data[26:], key, "decrypt", data[:26]),"\n\n")   #print and decypher the message from the server
 
 
